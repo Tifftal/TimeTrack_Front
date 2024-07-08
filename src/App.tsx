@@ -33,7 +33,11 @@ const App = () => {
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
           </Route>
-          <Route path='/home' element={<Home />} />
+          <Route path='/home' element={<Home />}>
+            <Route path='/tasks' element={<></>}></Route>
+            <Route path='/shop' element={<></>}></Route>
+            <Route path='/achievements' element={<></>}></Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </MantineProvider>
