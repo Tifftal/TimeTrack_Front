@@ -2,8 +2,7 @@ import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from './pages/Auth/Auth';
-import Login from './pages/Auth/Login/Login';
-import Register from './pages/Auth/Register/Register';
+import Register from './pages/Register/Register';
 import { Home } from './pages/Home/Home';
 
 const App = () => {
@@ -29,10 +28,8 @@ const App = () => {
     >
       <BrowserRouter>
         <Routes>
-          <Route path='/auth' element={<Auth />}>
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
-          </Route>
+          <Route path='/auth' element={<Auth />}/>
+          <Route path='/register' element={<Register />} />
           <Route path='/home' element={<Home />}>
             <Route path='/home/tasks' element={<></>}></Route>
             <Route path='/home/shop' element={<></>}></Route>

@@ -26,5 +26,25 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        .login {
+            width: 360px;
+
+            &-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+
+                &-btn {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+            }
+        }
     }
 }
