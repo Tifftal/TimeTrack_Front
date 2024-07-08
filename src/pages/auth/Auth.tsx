@@ -1,7 +1,14 @@
+import { Outlet } from "react-router-dom"
+
 const Auth = () => {
     return (
         <div className="auth">
-            AUTH
+            <div className="auth-navbar">
+                NAVBAR
+            </div>
+            <div className="auth-body">
+                <Outlet />
+            </div>
         </div>
     )
 }

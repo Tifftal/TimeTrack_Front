@@ -9,7 +9,10 @@ const App = () => {
     <MantineProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/auth' element={<Auth />} />
+          <Route path='/auth' element={<Auth />}>
+            <Route />
+            <Route />
+          </Route>
         </Routes>
       </BrowserRouter>
     </MantineProvider>
