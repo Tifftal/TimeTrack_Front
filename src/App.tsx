@@ -1,18 +1,37 @@
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Auth from './pages/auth/Auth';
-import './App.css'
+import Auth from './pages/Auth/Auth';
+import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
 import { Home } from './pages/home/Home';
 
 const App = () => {
   return (
-    <MantineProvider>
+    <MantineProvider
+      theme={{
+        colors: {
+          primary: [
+            "#e6f1ff",
+            "#cfddff",
+            "#9db8ff",
+            "#6891fb",
+            "#3c70f9",
+            "#1f5bf8",
+            "#0b51f9",
+            "#0042de",
+            "#003ac7",
+            "#0031b0"
+          ],
+        },
+        primaryColor: 'primary',
+      }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path='/auth' element={<Auth />}>
-            <Route />
-            <Route />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
           </Route>
           <Route path='/home' element={<Home />} />
         </Routes>
