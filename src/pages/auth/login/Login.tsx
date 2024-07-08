@@ -14,7 +14,7 @@ const Login = () => {
                     w={48}
                     src={IconLogo}
                 />
-                <Text size="28px" fw={600} mt={25}>Войдите в ваш аккаунт</Text>
+                <Text size="28px" fw={600} mt={10}>Войдите в ваш аккаунт</Text>
                 <Text size="14px" fw={400} c={'gray'}>Welcome back! Please enter your details.</Text>
                 <TextInput
                     w={'100%'}
