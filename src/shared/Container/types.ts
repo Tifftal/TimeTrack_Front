@@ -8,4 +8,5 @@ export type Props = {
   height?: string,
   width?: string,
   children: ReactNode,
+  backgroundImage?: string,
 }

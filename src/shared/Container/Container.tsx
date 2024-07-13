@@ -7,6 +7,8 @@ export const Container: React.FC<Props> = ({
   borderRadius = '10px',
   height = 'auto',
   width = '100%',
+  backgroundImage,
+  color,
   children
 }) => {
   return (
@@ -17,7 +19,9 @@ export const Container: React.FC<Props> = ({
       borderRadius,
       padding,
       height,
-      width
+      width,
+      ...(backgroundImage && { backgroundImage: `url: (${backgroundImage})` }),
+      ...(color && { color: color })
     }}>
       {children}
     </div>

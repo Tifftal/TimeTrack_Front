@@ -1,7 +1,8 @@
-import { Avatar, Button, Flex, Grid, Group, Input, rem, Space, Switch, Text } from "@mantine/core"
+import { Button, Flex, Grid, Group, Input, rem, Space, Text } from "@mantine/core"
 import { Container } from "../../shared/Container/Container"
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { IconFileUpload, IconPhoto, IconX, IconBrandTelegram, IconBrandApple } from "@tabler/icons-react"
+import { User } from "../../feature/User/User"
 
 export const Settings = () => {
   return (
@@ -10,45 +11,9 @@ export const Settings = () => {
       style={{ padding: "var(--mantine-spacing-md)" }}
     >
       <Space h="100" />
-      <Flex
-        direction="row"
-        align="center"
-        justify="space-between"
-        style={{
-          padding: "0 20px 0 75px",
-          borderRadius: "10px"
-        }}
-        bg="white"
-      >
-        <Group>
-          <Avatar
-            style={{
-              width: "150px",
-              height: "150px",
-              border: "5px solid white",
-              margin: "-50px 0 0 0"
-            }}
-          />
 
-          <Flex
-            direction="column"
-          >
-            <Text
-              size="xl"
-              fw={700}
-            >
-              Ivan Ivanov
-            </Text>
-            <Text
-              size="sm"
-            >
-              iivanov@yandex.ru
-            </Text>
-          </Flex>
-        </Group>
-
-        <Button variant="light">Поделиться</Button>
-      </Flex>
+      {/* TODO: Add props for this component */}
+      <User />
 
       <Space h="md" />
 
@@ -236,68 +201,6 @@ export const Settings = () => {
       </span>
 
       <Space h="md" />
-
-      <span style={{ padding: "10px" }}>
-        <Grid>
-          <Grid.Col
-            span={{
-              xl: 5,
-              md: 4,
-              sm: "content",
-              xs: "content",
-            }}
-            style={{ padding: 0 }}
-          >
-            <h2>Системные настройки</h2>
-            <Text size="sm">Настройки сайта и приложения</Text>
-          </Grid.Col>
-
-          <Grid.Col
-            span={{
-              xl: 7,
-              md: 8,
-              sm: 12,
-              xs: 12,
-            }}
-            style={{ padding: 0 }}
-          >
-            <Container>
-              <Grid>
-                <Grid.Col
-                  span={{
-                    xl: 6,
-                    md: 12,
-                    sm: 12,
-                    xs: 12
-                  }}
-                  style={{ padding: "0 8px 0 0x" }}
-                >
-                  <Switch
-                    label="Допуск уведомлений"
-                    style={{ padding: "0 0 8px 0" }}
-                  />
-                  <Switch
-                    label="Темная тема"
-                  />
-                </Grid.Col>
-                <Grid.Col
-                  span={{
-                    xl: 6,
-                    md: 12,
-                    sm: 12,
-                    xs: 12
-                  }}
-                  style={{ padding: "0 8px 0 0" }}
-                >
-                  <Switch
-                    label="Звуковые эффекты"
-                  />
-                </Grid.Col>
-              </Grid>
-            </Container>
-          </Grid.Col>
-        </Grid>
-      </span>
     </Flex>
   )
 }

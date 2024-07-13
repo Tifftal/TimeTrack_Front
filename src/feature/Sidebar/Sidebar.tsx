@@ -13,8 +13,6 @@ import {
   IconMenu3 as IconMenu,
   IconChartBarPopular as IconChartBar,
   IconSettings,
-  IconHelpSquare,
-  IconMail
 } from "@tabler/icons-react";
 
 import cn from "classnames";
@@ -128,24 +126,6 @@ export const SideBar: React.FC<Props> = ({
                     onClick={() => navigate('/home/settings')}
                   >
                     Настройки
-                  </Button>
-                </Menu.Item>
-                <Menu.Item className='sidebar-link'>
-                  <Button
-                    size="md"
-                    className="sidebar-link"
-                    leftSection={<IconHelpSquare />}
-                  >
-                    Помощь
-                  </Button>
-                </Menu.Item>
-                <Menu.Item className='sidebar-link'>
-                  <Button
-                    size="md"
-                    className="sidebar-link"
-                    leftSection={<IconMail />}
-                  >
-                    Поддержка
                   </Button>
                 </Menu.Item>
               </Menu.Dropdown>
