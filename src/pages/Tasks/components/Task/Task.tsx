@@ -20,7 +20,6 @@ export const Task: React.FC<Props> = ({
         justify="center"
         align="flex-end"
       >
-
         <Avatar
           color="blue"
           radius="xl"

@@ -50,6 +50,7 @@ export const SideBar: React.FC<Props> = ({
             <Button
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/shop') })}
               size="lg"
+              onClick={() => navigate('/home/market')}
             >
               Магазин
             </Button>

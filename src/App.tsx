@@ -8,6 +8,7 @@ import { Tasks } from './pages/Tasks/Tasks';
 import { Achievements } from './pages/Achievements/Achievements';
 
 import "./main.css";
+import { Market } from './pages/Market/Market';
 
 const App = () => {
   return (
@@ -32,11 +33,11 @@ const App = () => {
     >
       <BrowserRouter>
         <Routes>
-          <Route path='/auth' element={<Auth />}/>
+          <Route path='/auth' element={<Auth />} />
           <Route path='/register' element={<Register />} />
           <Route path='/home' element={<Home />}>
             <Route path='/home/tasks' element={<Tasks />}></Route>
-            <Route path='/home/shop' element={<></>}></Route>
+            <Route path='/home/market' element={<Market />}></Route>
             <Route path='/home/achievements' element={<Achievements />}></Route>
           </Route>
         </Routes>

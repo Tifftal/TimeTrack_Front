@@ -1,7 +1,11 @@
+import { Container } from "../../shared/Container/Container"
+
 export const Achievements = () => {
   return (
-    <h1>
-      Achievements
-    </h1>
+    <div style={{ padding: "var(--mantine-spacing-md)" }}>
+      <Container>
+        <h1>Достижения</h1>
+      </Container>
+    </div>
   )
 }
