@@ -1,12 +1,14 @@
-import { Avatar, Flex, Progress, Space } from "@mantine/core"
-import { Props } from "./types"
+import { Avatar, Flex, Group, Progress, Space, Text } from "@mantine/core"
+import { Props } from "./types";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 export const Task: React.FC<Props> = ({
   src = '',
   color = 'orange',
   description,
   size,
-  value
+  value,
+  target = false
 }) => {
   const percentValue = (value / size) * 100;
 
@@ -15,6 +17,8 @@ export const Task: React.FC<Props> = ({
       <Space h="xs" />
       <Flex
         direction="row"
+        justify="center"
+        align="flex-end"
       >
 
         <Avatar
@@ -28,9 +32,16 @@ export const Task: React.FC<Props> = ({
 
         <Flex
           direction="column"
-          style={{ width: '100%', justifyContent: "space-around" }}
+          style={{ width: '100%', justifyContent: "space-around", padding: "0 10px" }}
         >
-          <h3>{description}</h3>
+          <Group>
+            <h3>{description}</h3>
+            <IconInfoCircle
+              color="black"
+              size="20"
+            />
+          </Group>
+
           <Progress.Root size={size}>
             <Progress.Section value={percentValue} color={color}>
               <Progress.Label>{value}/{size}</Progress.Label>
@@ -38,6 +49,9 @@ export const Task: React.FC<Props> = ({
           </Progress.Root>
         </Flex>
 
+        {target && (
+          <Text fw={700}>{percentValue}%</Text>
+        )}
       </Flex>
       <Space h="xs" />
     </>

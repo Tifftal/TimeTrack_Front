@@ -33,18 +33,21 @@ export const Tasks = () => {
           size={20}
           value={15}
           color="green"
+          target
         />
         <Task
           description="Выполните задание и получите 20 алмазов"
           size={20}
           value={15}
           color="cyan"
+          target
         />
         <Task
           description="Выполните задание и получите 20 алмазов"
           size={20}
-          value={15}
+          value={3}
           color="blue"
+          target
         />
       </Container>
     </div>
