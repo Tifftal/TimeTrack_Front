@@ -125,6 +125,7 @@ export const SideBar: React.FC<Props> = ({
                     size="md"
                     className="sidebar-link"
                     leftSection={<IconSettings />}
+                    onClick={() => navigate('/home/settings')}
                   >
                     Настройки
                   </Button>

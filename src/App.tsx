@@ -1,4 +1,5 @@
 import '@mantine/core/styles.css';
+import '@mantine/dropzone/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from './pages/Auth/Auth';
@@ -6,9 +7,10 @@ import Register from './pages/Register/Register';
 import { Home } from './pages/Home/Home';
 import { Tasks } from './pages/Tasks/Tasks';
 import { Achievements } from './pages/Achievements/Achievements';
+import { Market } from './pages/Market/Market';
+import { Settings } from './pages/Settings/Settings';
 
 import "./main.css";
-import { Market } from './pages/Market/Market';
 
 const App = () => {
   return (
@@ -39,6 +41,10 @@ const App = () => {
             <Route path='/home/tasks' element={<Tasks />}></Route>
             <Route path='/home/market' element={<Market />}></Route>
             <Route path='/home/achievements' element={<Achievements />}></Route>
+            <Route path='/home/stats' element={<></>}></Route>
+            <Route path='/home/categories' element={<></>}></Route>
+            <Route path='/home/settings' element={<Settings />}></Route>
+            <Route path='/home/support' element={<></>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
