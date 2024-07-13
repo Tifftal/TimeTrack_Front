@@ -1,9 +1,21 @@
 import { CSSTransition } from "react-transition-group";
-import { Button, Flex } from "@mantine/core";
+import { Button, Flex, Menu } from "@mantine/core";
 import { CrossIcon } from "../../assets/icons/CrossIcon";
 import { useNavigate } from "react-router-dom";
 import { User } from "./comonents/User/User";
 import { Props } from "./types";
+import {
+  IconChevronRight,
+  IconHome,
+  IconShoppingBag,
+  IconSquareCheck,
+  IconStack2 as IconStack,
+  IconMenu3 as IconMenu,
+  IconChartBarPopular as IconChartBar,
+  IconSettings,
+  IconHelpSquare,
+  IconMail
+} from "@tabler/icons-react";
 
 import cn from "classnames";
 import "./ui/styles.scss";
@@ -44,6 +56,7 @@ export const SideBar: React.FC<Props> = ({
               size="lg"
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/task') })}
               onClick={() => navigate('/home/tasks')}
+              leftSection={<IconHome />}
             >
               Задания
             </Button>
@@ -51,6 +64,7 @@ export const SideBar: React.FC<Props> = ({
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/shop') })}
               size="lg"
               onClick={() => navigate('/home/market')}
+              leftSection={<IconShoppingBag />}
             >
               Магазин
             </Button>
@@ -58,15 +72,83 @@ export const SideBar: React.FC<Props> = ({
               size="lg"
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/achievements') })}
               onClick={() => navigate('/home/achievements')}
+              leftSection={<IconSquareCheck />}
             >
               Мои достижения
             </Button>
-            <Button
-              className='sidebar-link'
-              size="lg"
+
+            <Menu
+              position="right-start"
+              styles={{
+                item: {
+                  padding: 0
+                },
+                dropdown: {
+                  width: "200px"
+                }
+              }}
             >
-              Еще
-            </Button>
+              <Menu.Target>
+                <Button
+                  size="lg"
+                  className='sidebar-link'
+                  rightSection={<IconChevronRight />}
+                  leftSection={<IconStack />}
+                  styles={{
+                  }}
+                >
+                  Еще
+                </Button>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Menu.Item className='sidebar-link'>
+                  <Button
+                    size="md"
+                    className="sidebar-link"
+                    leftSection={<IconChartBar />}
+                  >
+                    Статистика
+                  </Button>
+                </Menu.Item>
+                <Menu.Item className='sidebar-link'>
+                  <Button
+                    size="md"
+                    className="sidebar-link"
+                    leftSection={<IconMenu />}
+                  >
+                    Категории
+                  </Button>
+                </Menu.Item>
+                <Menu.Item className='sidebar-link'>
+                  <Button
+                    size="md"
+                    className="sidebar-link"
+                    leftSection={<IconSettings />}
+                  >
+                    Настройки
+                  </Button>
+                </Menu.Item>
+                <Menu.Item className='sidebar-link'>
+                  <Button
+                    size="md"
+                    className="sidebar-link"
+                    leftSection={<IconHelpSquare />}
+                  >
+                    Помощь
+                  </Button>
+                </Menu.Item>
+                <Menu.Item className='sidebar-link'>
+                  <Button
+                    size="md"
+                    className="sidebar-link"
+                    leftSection={<IconMail />}
+                  >
+                    Поддержка
+                  </Button>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Flex>
           <Flex>
             <User />

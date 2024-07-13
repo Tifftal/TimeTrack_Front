@@ -37,6 +37,11 @@ export const Product: React.FC<Props> = ({
         </Group>
 
         <Button
+          style={{
+            color: "dodgerblue",
+            border: "2px solid dodgerblue",
+            backgroundColor: "transparent"
+          }}
           leftSection={
             <IconDiamond />
           }
