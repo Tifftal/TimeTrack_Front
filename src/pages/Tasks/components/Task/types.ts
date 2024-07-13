@@ -4,5 +4,5 @@ export type Props = {
   size: number,
   value: number,
   color?: string,
-  events?: boolean,
+  target?: boolean,
 }

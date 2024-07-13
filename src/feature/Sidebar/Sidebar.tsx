@@ -1,23 +1,21 @@
 import { CSSTransition } from "react-transition-group";
 import { Button, Flex } from "@mantine/core";
-import { useState } from "react";
-import cn from "classnames";
-import "./ui/styles.scss";
 import { CrossIcon } from "../../assets/icons/CrossIcon";
 import { useNavigate } from "react-router-dom";
 import { User } from "./comonents/User/User";
+import { Props } from "./types";
 
-export const SideBar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+import cn from "classnames";
+import "./ui/styles.scss";
+
+export const SideBar: React.FC<Props> = ({
+  isOpen,
+  setIsOpen
+}) => {
   const navigate = useNavigate();
 
   return (
     <>
-      <Button
-        onClick={() => setIsOpen(true)}
-      >
-        Open
-      </Button>
       <CSSTransition
         timeout={200}
         classNames='sidebar'
