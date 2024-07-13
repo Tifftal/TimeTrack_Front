@@ -1,0 +1,89 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--col-max-width);
+  justify-content: space-between;
+  padding: 10px;
+
+  &-link {
+    width: 100%;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+
+    &_active,
+    &:hover {
+      background-color: rgb(225, 233, 255);
+      color: rgb(0, 60, 255)
+    }
+  }
+
+  &-logo {
+    padding-bottom: 10px;
+
+  }
+
+  &-close-btn {
+    width: 40px;
+    height: 40px;
+    color: #fff;
+  }
+}
+
+.sidebar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: all .5s ease;
+
+  background-color: #fff;
+}
+
+.sidebar-enter {
+  transform: translateX(-100%);
+}
+
+.sidebar-enter-active {
+  transform: translateX(0);
+}
+
+.sidebar-enter-done {
+  transform: translateX(0);
+}
+
+.sidebar-exit-done {
+  transform: translateX(-100%);
+}
+
+.backdrop {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.backdrop-enter {
+  opacity: 0;
+}
+
+.backdrop-enter-active {
+  opacity: 1;
+}
+
+.backdrop-enter-done {
+  opacity: 1;
+}

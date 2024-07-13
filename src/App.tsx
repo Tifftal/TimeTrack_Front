@@ -4,6 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from './pages/Auth/Auth';
 import Register from './pages/Register/Register';
 import { Home } from './pages/Home/Home';
+import { Tasks } from './pages/Tasks/Tasks';
+import { Achievements } from './pages/Achievements/Achievements';
+
+import "./main.css";
 
 const App = () => {
   return (
@@ -31,9 +35,9 @@ const App = () => {
           <Route path='/auth' element={<Auth />}/>
           <Route path='/register' element={<Register />} />
           <Route path='/home' element={<Home />}>
-            <Route path='/home/tasks' element={<></>}></Route>
+            <Route path='/home/tasks' element={<Tasks />}></Route>
             <Route path='/home/shop' element={<></>}></Route>
-            <Route path='/home/achievements' element={<></>}></Route>
+            <Route path='/home/achievements' element={<Achievements />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
