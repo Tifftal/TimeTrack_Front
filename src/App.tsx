@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css';
 import '@mantine/dropzone/styles.css';
 import { MantineProvider } from '@mantine/core';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Auth from './pages/Auth/Auth';
 import Register from './pages/Register/Register';
 import { Home } from './pages/Home/Home';
@@ -46,6 +46,7 @@ const App = () => {
             <Route path='/home/settings' element={<Settings />}></Route>
             <Route path='/home/support' element={<></>}></Route>
           </Route>
+          <Route path='*' element={<Navigate to='/auth' />} />
         </Routes>
       </BrowserRouter>
     </MantineProvider>

@@ -44,7 +44,7 @@ const Auth = () => {
                 console.log(respose)
                 localStorage.setItem('accessToken', respose.data.jwtTokens.access)
                 localStorage.setItem('refreshToken', respose.data.jwtTokens.refresh)
-                navigate('/home');
+                navigate('/home/tasks');
             })
             .catch(error => {
                 if (error.response && error.response.status === 409) {
