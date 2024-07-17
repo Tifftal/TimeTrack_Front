@@ -3,9 +3,57 @@ import Logo from '../../assets/Logo.svg'
 import { Button, Image, TextInput, Text, PasswordInput, Checkbox } from "@mantine/core";
 import IconLogo from '../../assets/IconLogo.svg';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '@mantine/form';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Auth = () => {
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
     const navigate = useNavigate();
+
+    const form = useForm({
+        mode: 'uncontrolled',
+        initialValues: {
+            login: '',
+            password: '',
+        },
+        validate: {
+            login: (value) =>
+              value.length === 0 ? 'Пустое поле' : null,
+            password: (value) =>
+              value.length === 0 ? 'Пустое поле' : null,
+          },
+    });
+
+    const Login = (values: { login: string, password: string }) => {
+        setErrorMessage(null);
+
+        axios.post(import.meta.env.VITE_AUTH_ENDPOINT + '/login',
+            {
+                username: values.login,
+                password: values.password
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
+            .then(respose => {
+                console.log(respose)
+                localStorage.setItem('accessToken', respose.data.jwtTokens.access)
+                localStorage.setItem('refreshToken', respose.data.jwtTokens.refresh)
+                navigate('/home');
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 409) {
+                    setErrorMessage('Неверный логин или пароль');
+                } else {
+                    console.error(error);
+                }
+            })
+    }
 
     return (
         <div className="auth">
@@ -27,7 +75,7 @@ const Auth = () => {
             </div>
             <div className="auth-body">
                 <div className="login">
-                    <div className='login-container'>
+                    <form className='login-container' onSubmit={form.onSubmit((values) => Login(values))}>
                         <Image
                             h={48}
                             w={48}
@@ -39,25 +87,30 @@ const Auth = () => {
                             w={'100%'}
                             label="Логин"
                             placeholder="Введите ваш логин"
+                            key={form.key('login')}
+                            {...form.getInputProps('login')}
                         />
                         <PasswordInput
                             w={'100%'}
                             label="Пароль"
                             placeholder="Введите пароль"
-                            defaultVisible
+                            defaultVisible={false}
+                            key={form.key('password')}
+                            {...form.getInputProps('password')}
                         />
+                        {errorMessage && <Text c="red" size={'14px'}>{errorMessage}</Text>}
                         <div className='login-container-btn'>
                             <Checkbox
                                 label="Сохранить пароль"
                             />
                             <Button variant='transparent' p={0}>Забыли пароль?</Button>
                         </div>
-                        <Button fullWidth>Войти</Button>
+                        <Button fullWidth type="submit">Войти</Button>
                         <div className='login-container-btn'>
                             <Text size="14px" fw={400}>Еще не зарегистрированы?</Text>
                             <Button variant='transparent' p={0} onClick={() => navigate('/register')}>Зарегистрироваться</Button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
