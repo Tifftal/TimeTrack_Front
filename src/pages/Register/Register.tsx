@@ -7,14 +7,6 @@ import Logo from '../../assets/Logo.svg';
 import { useForm } from '@mantine/form';
 import { authInstance } from '../../api/authInstance';
 
-// {
-//   "mail": "string",
-//   "password": "string",
-//   "username": "string",
-//   "name": "string",
-//   "middleName": "string",
-//   "surname": "string"
-
 const Register = () => {
   const navigate = useNavigate();
 
