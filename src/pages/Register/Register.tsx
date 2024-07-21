@@ -42,6 +42,8 @@ const Register = () => {
   const handleSubmitForm = (values: Record<string, unknown>) => {
     delete values.confirmPassword;
 
+    form.setValues((prev) => ({ ...prev, confirmPassword: '' }))
+
     console.log(values);
 
     authInstance.post('/register', {
@@ -49,7 +51,7 @@ const Register = () => {
     })
       .then((response) => {
         // @ts-expect-error
-        const { jwtTokens } = response;
+        const { jwtTokens } = response.data;
 
         const { access, refresh, desktopToken } = jwtTokens;
 
@@ -107,18 +109,18 @@ const Register = () => {
             {...form.getInputProps('middleName')}
           />
           <TextInput
-            w={'100%'}
-            label="Email"
-            placeholder="Введите ваш Email"
-            key={form.key('mail')}
-            {...form.getInputProps('mail')}
-          />
-          <TextInput
             w='100%'
             label='username'
             placeholder="Введите логин"
             key={form.key('username')}
             {...form.getInputProps('username')}
+          />
+          <TextInput
+            w={'100%'}
+            label="Email"
+            placeholder="Введите ваш Email"
+            key={form.key('mail')}
+            {...form.getInputProps('mail')}
           />
           <PasswordInput
             w={'100%'}

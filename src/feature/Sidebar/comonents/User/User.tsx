@@ -1,11 +1,31 @@
 import { Avatar, Button, Flex } from "@mantine/core"
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
+import { apiInstance } from "../../../../api/apiInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../../store/userSlice/userSlice";
+import { selectUserState } from "../../../../store/userSlice/userSelector";
 
 export const User = () => {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+  const { username, name, surname } = useSelector(selectUserState);
+
+  useEffect(() => {
+    apiInstance.get('/user/me')
+      .then((response) => {
+        dispatch(setUser(response.data));
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }, []);
+
+  // TODO: Add Skeleton onload
   return (
-    <div style={{width: '100%'}}>
+    <div style={{ width: '100%' }}>
       <Flex
         align="center"
         direction="row"
@@ -20,12 +40,12 @@ export const User = () => {
           />
         </div>
         <div>
-          <h4>Ivan Ivanov</h4>
-          <p>iivanov@yandex.ru</p>
+          <h4>{surname} {name}</h4>
+          <p>{username}</p>
         </div>
       </Flex>
       <div>
-        <Button fullWidth mt={20} onClick={()=>{navigate('/auth'); localStorage.clear()}}>Выйти</Button>
+        <Button fullWidth mt={20} onClick={() => { navigate('/auth'); localStorage.clear() }}>Выйти</Button>
       </div>
     </div>
   )

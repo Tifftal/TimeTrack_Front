@@ -1,6 +1,10 @@
 import { Flex, Group, Avatar, Button, Text } from "@mantine/core"
+import { useSelector } from "react-redux";
+import { selectUserState } from "../../store/userSlice/userSelector";
 
 export const User = () => {
+  const { surname, name, middleName, username } = useSelector(selectUserState);
+
   return (
     <Flex
       direction="row"
@@ -29,12 +33,12 @@ export const User = () => {
             size="xl"
             fw={700}
           >
-            Ivan Ivanov
+            {surname} {name} {middleName}
           </Text>
           <Text
             size="sm"
           >
-            iivanov@yandex.ru
+            {username}
           </Text>
         </Flex>
       </Group>

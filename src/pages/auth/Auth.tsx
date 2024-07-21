@@ -29,7 +29,7 @@ const Auth = () => {
   const Login = (values: { login: string, password: string }) => {
     setErrorMessage(null);
 
-    authInstance.post('/login', {
+    authInstance.post(`/login?from=BROWSER`, {
       // TODO: Лучше бы , чтобы сущности на клиенте совпадали с сущностями на сервере
       username: values.login,
       password: values.password
