@@ -7,17 +7,17 @@
   z-index: 100;
 
   &-link {
-    width: 100%;
-    background-color: transparent;
-    color: black;
-    display: flex;
-    align-items: flex-start;
+    width: 100% !important;
+    background-color: transparent !important;
+    color: black !important;
+    display: flex !important;
+    align-items: flex-start !important;
     margin: 5px 0;
 
     &_active,
     &:hover {
-      background-color: rgb(225, 233, 255);
-      color: rgb(0, 60, 255)
+      background-color: rgb(225, 233, 255) !important;
+      color: rgb(0, 60, 255) !important;
     }
   }
 

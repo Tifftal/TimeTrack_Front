@@ -1,5 +1,3 @@
-import '@mantine/core/styles.css';
-import '@mantine/dropzone/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Auth from './pages/Auth/Auth';
@@ -10,10 +8,13 @@ import { Achievements } from './pages/Achievements/Achievements';
 import { Market } from './pages/Market/Market';
 import { Settings } from './pages/Settings/Settings';
 import { Provider as ReduxProvider } from 'react-redux';
-
-import "./main.css";
 import { store } from './store/store';
 import Desktop from './pages/Desktop/Desktop';
+
+import '@mantine/dropzone/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/core/styles.css';
+import "./main.css";
 
 const App = () => {
   return (

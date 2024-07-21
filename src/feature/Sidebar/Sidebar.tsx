@@ -51,7 +51,7 @@ export const SideBar: React.FC<Props> = ({
               </Button>
             </Flex>
             <Button
-              size="lg"
+              size="md"
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/task') })}
               onClick={() => navigate('/home/tasks')}
               leftSection={<IconHome />}
@@ -60,14 +60,14 @@ export const SideBar: React.FC<Props> = ({
             </Button>
             <Button
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/shop') })}
-              size="lg"
+              size="md"
               onClick={() => navigate('/home/market')}
               leftSection={<IconShoppingBag />}
             >
               Магазин
             </Button>
             <Button
-              size="lg"
+              size="md"
               className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/achievements') })}
               onClick={() => navigate('/home/achievements')}
               leftSection={<IconSquareCheck />}
@@ -88,7 +88,7 @@ export const SideBar: React.FC<Props> = ({
             >
               <Menu.Target>
                 <Button
-                  size="lg"
+                  size="md"
                   className='sidebar-link'
                   rightSection={<IconChevronRight />}
                   leftSection={<IconStack />}

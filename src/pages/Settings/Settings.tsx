@@ -3,8 +3,56 @@ import { Container } from "../../shared/Container/Container"
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { IconFileUpload, IconPhoto, IconX, IconBrandTelegram, IconBrandApple } from "@tabler/icons-react"
 import { User } from "../../feature/User/User"
+import { useForm } from "@mantine/form"
+import { useDispatch, useSelector } from "react-redux"
+import { selectUserState } from "../../store/userSlice/userSelector"
+import { DatePickerInput } from "@mantine/dates"
+import { apiInstance } from "../../api/apiInstance"
+import { setUser } from "../../store/userSlice/userSlice"
+import { useEffect } from "react"
 
 export const Settings = () => {
+  const { name, middleName, surname, id } = useSelector(selectUserState);
+  const dispatch = useDispatch();
+
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      name: name,
+      middleName: middleName,
+      surname: surname,
+      dob: '',
+    },
+    validate: {
+      name: (value) => value.length === 0 ? 'Пустое поле' : null,
+      middleName: (value) => value.length === 0 ? 'Пустое поле' : null,
+      surname: (value) => value.length === 0 ? 'Пустое поле' : null,
+      dob: (value) => value.length === 0 ? 'Пустое поле' : null,
+    }
+  });
+
+  useEffect(() => {
+    if (name && middleName && surname && id) {
+      form.setValues({
+        name,
+        middleName,
+        surname,
+      });
+    }
+  }, [name, middleName, surname, id]);
+
+  const changeUserData = (values: Record<string, string>) => {
+    apiInstance.put(`/user/${id}`, {
+      ...values
+    })
+      .then(response => {
+        dispatch(setUser(response.data));
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
   return (
     <Flex
       direction="column"
@@ -40,7 +88,7 @@ export const Settings = () => {
             style={{ padding: 0 }}
           >
             <Container>
-              <form>
+              <form onSubmit={form.onSubmit((values) => changeUserData(values))}>
                 <Grid>
                   <Grid.Col
                     span={{
@@ -52,13 +100,34 @@ export const Settings = () => {
                     style={{ padding: "0 8px 0 0" }}
                   >
                     <Input.Wrapper label="Логин">
-                      <Input placeholder="Введите ваш логин"></Input>
-                    </Input.Wrapper>
-                    <Input.Wrapper label="Имя">
-                      <Input placeholder="Введите ваше имя"></Input>
+                      <Input
+                        placeholder="Введите ваш логин"
+                      // value={username}
+                      ></Input>
                     </Input.Wrapper>
                     <Input.Wrapper label="Фамилия">
-                      <Input placeholder="Введите вашу фамилию"></Input>
+                      <Input
+                        placeholder="Введите вашу фамилию"
+                        // value={surname}
+                        key={form.key('surname')}
+                        {...form.getInputProps('surname')}
+                      ></Input>
+                    </Input.Wrapper>
+                    <Input.Wrapper label="Имя">
+                      <Input
+                        placeholder="Введите ваше имя"
+                        // value={name}
+                        key={form.key('name')}
+                        {...form.getInputProps('name')}
+                      ></Input>
+                    </Input.Wrapper>
+                    <Input.Wrapper label="Отчество">
+                      <Input
+                        placeholder="Введите ваше отчество"
+                        // value={middleName}
+                        key={form.key('middleName')}
+                        {...form.getInputProps('middleName')}
+                      ></Input>
                     </Input.Wrapper>
                   </Grid.Col>
                   <Grid.Col
@@ -78,6 +147,13 @@ export const Settings = () => {
                     </Input.Wrapper>
                     <Input.Wrapper label="Повторите пароль">
                       <Input placeholder="Повторите пароль"></Input>
+                    </Input.Wrapper>
+                    <Input.Wrapper label="Введите дату рождения">
+                      <DatePickerInput
+                        placeholder="Введите дату рождения"
+                        key={form.key('dob')}
+                        {...form.getInputProps('dob')}
+                      />
                     </Input.Wrapper>
                   </Grid.Col>
 
@@ -120,7 +196,7 @@ export const Settings = () => {
                       <Button>
                         Отменить
                       </Button>
-                      <Button>
+                      <Button type="submit">
                         Сохранить
                       </Button>
                     </Button.Group>
