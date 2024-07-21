@@ -36,8 +36,8 @@ const Auth = () => {
     })
       .then(response => {
         console.log(response)
-        localStorage.setItem('accessToken', response.data.jwtTokens.access)
-        localStorage.setItem('refreshToken', response.data.jwtTokens.refresh)
+        localStorage.setItem('ACCESS_TOKEN', response.data.jwtTokens.access)
+        localStorage.setItem('REFRESH_TOKEN', response.data.jwtTokens.refresh)
         navigate('/home/tasks');
       })
       .catch(error => {

@@ -12,9 +12,10 @@ import { store } from './store/store';
 import Desktop from './pages/Desktop/Desktop';
 
 import '@mantine/dropzone/styles.css';
-import '@mantine/dates/styles.css';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import "./main.css";
+import { Stats } from './pages/Stats/Stats';
 
 const App = () => {
   return (
@@ -47,7 +48,7 @@ const App = () => {
               <Route path='/home/tasks' element={<Tasks />}></Route>
               <Route path='/home/market' element={<Market />}></Route>
               <Route path='/home/achievements' element={<Achievements />}></Route>
-              <Route path='/home/stats' element={<></>}></Route>
+              <Route path='/home/stats' element={<Stats />}></Route>
               <Route path='/home/categories' element={<></>}></Route>
               <Route path='/home/settings' element={<Settings />}></Route>
               <Route path='/home/support' element={<></>}></Route>

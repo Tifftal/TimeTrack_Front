@@ -105,6 +105,7 @@ export const SideBar: React.FC<Props> = ({
                     size="md"
                     className="sidebar-link"
                     leftSection={<IconChartBar />}
+                    onClick={() => navigate('/home/stats')}
                   >
                     Статистика
                   </Button>

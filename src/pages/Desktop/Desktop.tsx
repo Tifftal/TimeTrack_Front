@@ -39,7 +39,7 @@ const Desktop = () => {
 
 
   return (
-    <Flex h='100vh' w='50vw' align='center' justify='center' style={{ margin: "auto" }}>
+    <Flex h='100vh' w='30vw' align='center' justify='center' style={{ margin: "auto" }}>
       <Container>
         <Flex align='center' justify='center'>
           {isLoading && <Loader color="blue" />}
