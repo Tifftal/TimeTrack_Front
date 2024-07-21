@@ -34,10 +34,10 @@ const Auth = () => {
       username: values.login,
       password: values.password
     })
-      .then(respose => {
-        console.log(respose)
-        localStorage.setItem('accessToken', respose.data.jwtTokens.access)
-        localStorage.setItem('refreshToken', respose.data.jwtTokens.refresh)
+      .then(response => {
+        console.log(response)
+        localStorage.setItem('accessToken', response.data.jwtTokens.access)
+        localStorage.setItem('refreshToken', response.data.jwtTokens.refresh)
         navigate('/home/tasks');
       })
       .catch(error => {

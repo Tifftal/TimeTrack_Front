@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex } from "@mantine/core"
+import { Avatar, Button, Flex, Skeleton, Space } from "@mantine/core"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { apiInstance } from "../../../../api/apiInstance";
@@ -12,6 +12,8 @@ export const User = () => {
   const dispatch = useDispatch();
 
   const { username, name, surname } = useSelector(selectUserState);
+
+  const isLoaded = !!(username && name && surname);
 
   useEffect(() => {
     apiInstance.get('/user/me')
@@ -40,8 +42,18 @@ export const User = () => {
           />
         </div>
         <div>
-          <h4>{surname} {name}</h4>
-          <p>{username}</p>
+          {!isLoaded ? (
+            <>
+              <Skeleton animate={true} height={8} width={150} radius="xl" />
+              <Space h="md" />
+              <Skeleton animate={true} height={8} width={100} radius="xl" />
+            </>
+          ) : (
+            <>
+              <h4>{surname} {name}</h4>
+              <p>{username}</p>
+            </>
+          )}
         </div>
       </Flex>
       <div>

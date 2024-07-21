@@ -4,6 +4,7 @@
   width: var(--col-max-width);
   justify-content: space-between;
   padding: 10px;
+  z-index: 100;
 
   &-link {
     width: 100%;

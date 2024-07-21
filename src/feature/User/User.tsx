@@ -1,9 +1,11 @@
-import { Flex, Group, Avatar, Button, Text } from "@mantine/core"
+import { Flex, Group, Avatar, Button, Text, Skeleton, Space } from "@mantine/core"
 import { useSelector } from "react-redux";
 import { selectUserState } from "../../store/userSlice/userSelector";
 
 export const User = () => {
   const { surname, name, middleName, username } = useSelector(selectUserState);
+
+  const isLoaded = !!(surname && name && middleName && username);
 
   return (
     <Flex
@@ -22,24 +24,35 @@ export const User = () => {
             width: "150px",
             height: "150px",
             border: "5px solid white",
-            margin: "-50px 0 0 0"
+            margin: "-50px 0 0 0",
+            zIndex: "0"
           }}
         />
 
         <Flex
           direction="column"
         >
-          <Text
-            size="xl"
-            fw={700}
-          >
-            {surname} {name} {middleName}
-          </Text>
-          <Text
-            size="sm"
-          >
-            {username}
-          </Text>
+          {!isLoaded ? (
+            <>
+              <Skeleton animate={true} height={8} width={200} radius="xl" />
+              <Space h="md" />
+              <Skeleton animate={true} height={8} width={100} radius="xl" />
+            </>
+          ) : (
+            <>
+              <Text
+                size="xl"
+                fw={700}
+              >
+                {surname} {name} {middleName}
+              </Text>
+              <Text
+                size="sm"
+              >
+                {username}
+              </Text>
+            </>
+          )}
         </Flex>
       </Group>
 
