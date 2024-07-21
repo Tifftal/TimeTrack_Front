@@ -8,6 +8,7 @@ import { selectUserType } from "../../store/userSlice/userSelector"
 import { useSelector } from "react-redux"
 import { useDisclosure } from "@mantine/hooks"
 import { useForm } from "@mantine/form"
+import { SubAccount } from "./components/SubAccount/SubAccount"
 
 export const Achievements = () => {
   const [previewAchievements, setPreviewAchievements] = useState<Record<string, string>[]>([]);
@@ -224,43 +225,9 @@ export const Achievements = () => {
                 </Button>
               </Flex>
 
-              {linkedUsers.length > 0 ? linkedUsers.map(({
-                id,
-                username,
-                name,
-                middleName,
-                surname,
-                userType,
-                createTime
-              }) => (
-                <Container key={id}>
-                  <Flex>
-                    <Group>
-                      <Avatar
-                        style={{
-                          width: "75px",
-                          height: "75px",
-                          border: "5px solid white",
-                        }}
-                      />
-
-                      <Flex
-                        direction="column"
-                      >
-                        <Text
-                          size="xl"
-                          fw={600}
-                        >
-                          {surname} {name} {middleName}
-                        </Text>
-                        <Text size="sm">
-                          {username} {userType}
-                        </Text>
-                        <Text size="sm">Зарегестрирован: {new Date(createTime).toLocaleDateString().split(',')[0]}</Text>
-                      </Flex>
-                    </Group>
-                  </Flex>
-                </Container>
+              {linkedUsers.length > 0 ? linkedUsers.map((user, idx) => (
+                // @ts-expect-error
+                <SubAccount {...user} key={idx} />
               )) : <p>Нет связанных с Вашим аккаунтом пользователей</p>}
             </Container>
           </Flex>

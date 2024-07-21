@@ -13,6 +13,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import "./main.css";
 import { store } from './store/store';
+import Desktop from './pages/Desktop/Desktop';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path='/auth' element={<Auth />} />
+            <Route path='/auth/desktop' element={<Desktop />} />
             <Route path='/register' element={<Register />} />
             <Route path='/home' element={<Home />}>
               <Route path='/home/tasks' element={<Tasks />}></Route>
