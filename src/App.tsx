@@ -1,8 +1,8 @@
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Auth from './pages/Auth/Auth';
+import Auth from './pages/auth/Auth';
 import Register from './pages/Register/Register';
-import { Home } from './pages/Home/Home';
+import { Home } from './pages/home/Home';
 import { Tasks } from './pages/Tasks/Tasks';
 import { Achievements } from './pages/Achievements/Achievements';
 import { Market } from './pages/Market/Market';
