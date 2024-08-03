@@ -33,7 +33,7 @@ export const SubAccount = ({
       })
   }
 
-  console.log("LINK", link)
+  console.log("CREATE TIME", createTime)
 
   return (
     <>
@@ -71,7 +71,7 @@ export const SubAccount = ({
               <Text size="sm">
                 {username} {userType}
               </Text>
-              <Text size="sm">Зарегестрирован: {new Date(createTime).toLocaleDateString().split(',')[0]}</Text>
+              <Text size="sm">Зарегистрирован: {new Date(createTime || Date.now()).toLocaleDateString().split(',')[0]}</Text>
             </Flex>
           </Group>
           <Flex direction="column" align="center" justify="center">
