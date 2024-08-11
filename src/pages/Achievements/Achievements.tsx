@@ -43,6 +43,7 @@ export const Achievements = () => {
   useEffect(() => {
     apiInstance.get('/achievements?page=0&size=5&sort=ASC')
       .then((response) => {
+        console.log(response.data);
         setPreviewAchievements(response.data.content || []);
       })
       .catch(error => {
