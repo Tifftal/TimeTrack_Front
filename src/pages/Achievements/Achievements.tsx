@@ -40,10 +40,15 @@ export const Achievements = () => {
 
   const { userType, userInventory: { diamonds }, userStatistics: { durationOfShockMode } } = useSelector(selectUserState)
 
+
+  const durationOfShockModeInDays = (() => {
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return Math.floor(durationOfShockMode / millisecondsPerDay);
+  })();
+
   useEffect(() => {
     apiInstance.get('/achievements?page=0&size=5&sort=ASC')
       .then((response) => {
-        console.log(response.data);
         setPreviewAchievements(response.data.content || []);
       })
       .catch(error => {
@@ -164,7 +169,7 @@ export const Achievements = () => {
                   <IconFlame />
                 }
               >
-                {durationOfShockMode}
+                {durationOfShockModeInDays}
               </Button>
             </Container>
 

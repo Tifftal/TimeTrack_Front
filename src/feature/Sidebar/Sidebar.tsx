@@ -17,12 +17,15 @@ import {
 
 import cn from "classnames";
 import "./ui/styles.scss";
+import { useSelector } from "react-redux";
+import { selectUserType } from "../../store/userSlice/userSelector";
 
 export const SideBar: React.FC<Props> = ({
   isOpen,
   setIsOpen
 }) => {
   const navigate = useNavigate();
+  const userType = useSelector(selectUserType);
 
   return (
     <>
@@ -45,7 +48,7 @@ export const SideBar: React.FC<Props> = ({
               <Button
                 size="xs"
                 className="sidebar-close-btn"
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsOpen(true)}
               >
                 <CrossIcon />
               </Button>
@@ -72,7 +75,7 @@ export const SideBar: React.FC<Props> = ({
               onClick={() => navigate('/home/achievements')}
               leftSection={<IconSquareCheck />}
             >
-              Мои достижения
+              Профиль
             </Button>
 
             <Menu
@@ -100,17 +103,20 @@ export const SideBar: React.FC<Props> = ({
               </Menu.Target>
 
               <Menu.Dropdown>
-                <Menu.Item className='sidebar-link'>
-                  <Button
-                    size="md"
-                    className="sidebar-link"
-                    leftSection={<IconChartBar />}
-                    onClick={() => navigate('/home/stats')}
-                  >
-                    Статистика
-                  </Button>
-                </Menu.Item>
-                <Menu.Item className='sidebar-link'>
+                {userType === "ROLE_SYSTEM_ADMIN" && (
+                  <Menu.Item className='sidebar-link'>
+                    <Button
+                      size="md"
+                      className="sidebar-link"
+                      leftSection={<IconChartBar />}
+                      onClick={() => navigate('/home/stats')}
+                    >
+                      Статистика
+                    </Button>
+                  </Menu.Item>
+                )}
+                {/* TODO: Не знаю что тут надо наверстать */}
+                {/* <Menu.Item className='sidebar-link'>
                   <Button
                     size="md"
                     className="sidebar-link"
@@ -118,7 +124,7 @@ export const SideBar: React.FC<Props> = ({
                   >
                     Категории
                   </Button>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item className='sidebar-link'>
                   <Button
                     size="md"

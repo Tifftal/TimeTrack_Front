@@ -15,6 +15,11 @@ export const Navbar: React.FC<Props> = ({
   const dispatch = useDispatch();
   const { userInventory: { diamonds, freezing }, userStatistics: { durationOfShockMode, freezeStatus, freezeTill } } = useSelector(selectUserState)
 
+  const durationOfShockModeInDays = (() => {
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return Math.floor(durationOfShockMode / millisecondsPerDay);
+  })();
+
   const isFreezeActive = freezeStatus === "ACTIVE";
 
   const handleActivateFreeze = () => {
@@ -59,7 +64,7 @@ export const Navbar: React.FC<Props> = ({
       style={{ padding: "10px" }}
     >
       <ActionIcon
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(false)}
         size="lg"
       >
         <IconNavbarMenu />
@@ -104,7 +109,7 @@ export const Navbar: React.FC<Props> = ({
             <IconFlame />
           }
         >
-          {durationOfShockMode}
+          {durationOfShockModeInDays}
         </Button>
 
         <Button
