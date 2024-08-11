@@ -10,6 +10,19 @@ export type UserType = {
   name: string,
   userType: string,
   surname: string;
+  userInventory: UserInventory;
+  userStatistics: UserStatistics;
+}
+
+export type UserInventory = {
+  diamonds: number;
+  freezing: number;
+}
+
+export type UserStatistics = {
+  freezeStatus: string;
+  freezeTill: string;
+  durationOfShockMode: number;
 }
 
 const initialState: UserType = {
@@ -19,6 +32,15 @@ const initialState: UserType = {
   name: '',
   userType: '',
   surname: '',
+  userInventory: {
+    diamonds: 0,
+    freezing: 0,
+  },
+  userStatistics: {
+    freezeStatus: '',
+    freezeTill: '',
+    durationOfShockMode: 0
+  }
 };
 
 export const userSlice = createSlice({

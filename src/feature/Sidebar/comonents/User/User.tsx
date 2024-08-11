@@ -23,9 +23,8 @@ export const User = () => {
       .catch(error => {
         console.error(error);
       })
-  }, []);
+  }, [dispatch]);
 
-  // TODO: Add Skeleton onload
   return (
     <div style={{ width: '100%' }}>
       <Flex

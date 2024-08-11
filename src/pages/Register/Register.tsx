@@ -44,8 +44,6 @@ const Register = () => {
 
     form.setValues((prev) => ({ ...prev, confirmPassword: '' }))
 
-    console.log(values);
-
     authInstance.post('/register', {
       ...values
     })

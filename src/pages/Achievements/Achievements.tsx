@@ -1,10 +1,10 @@
-import { Avatar, Button, Flex, Grid, Group, Space, Text, Modal, TextInput, PasswordInput } from "@mantine/core"
+import { Button, Flex, Grid, Space, Text, Modal, TextInput, PasswordInput } from "@mantine/core"
 import { User } from "../../feature/User/User"
 import { Container } from "../../shared/Container/Container"
 import { IconChevronRight, IconDiamond, IconFlame, IconPlus } from "@tabler/icons-react"
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect } from "react"
 import { apiInstance } from "../../api/apiInstance"
-import { selectUserType } from "../../store/userSlice/userSelector"
+import { selectUserState } from "../../store/userSlice/userSelector"
 import { useSelector } from "react-redux"
 import { useDisclosure } from "@mantine/hooks"
 import { useForm } from "@mantine/form"
@@ -38,7 +38,7 @@ export const Achievements = () => {
     }
   })
 
-  const userType = useSelector(selectUserType);
+  const { userType, userInventory: { diamonds }, userStatistics: { durationOfShockMode } } = useSelector(selectUserState)
 
   useEffect(() => {
     apiInstance.get('/achievements?page=0&size=5&sort=ASC')
@@ -52,7 +52,6 @@ export const Achievements = () => {
     if (userType === "ROLE_ORGANIZATION_ADMIN") {
       apiInstance.get('/desktop-user')
         .then((response) => {
-          console.log(response.data);
           setLinkedUsers(response.data)
         })
         .catch(error => {
@@ -164,7 +163,7 @@ export const Achievements = () => {
                   <IconFlame />
                 }
               >
-                1
+                {durationOfShockMode}
               </Button>
             </Container>
 
@@ -193,7 +192,7 @@ export const Achievements = () => {
                   <IconDiamond />
                 }
               >
-                1337
+                {diamonds}
               </Button>
             </Container>
           </Grid.Col>

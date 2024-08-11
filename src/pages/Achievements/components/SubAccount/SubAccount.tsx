@@ -33,8 +33,6 @@ export const SubAccount = ({
       })
   }
 
-  console.log("CREATE TIME", createTime)
-
   return (
     <>
       <Modal size="md" centered opened={opened} onClose={close} title={`${surname} ${name} ${middleName}`}>
