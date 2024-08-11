@@ -23,7 +23,9 @@ export const Stats = () => {
     endTime: '',
   });
 
-
+  const resetPage = () => {
+    setPages({ ...pages, number: 0 })
+  }
 
   const formatQueryString = useCallback((): string => {
     let query = `?page=${pages.number}&size=10`;
@@ -104,8 +106,8 @@ export const Stats = () => {
     <>
       <Container>
         <Flex direction="row">
-          <Input onChange={(event) => setFilters({ ...filters, appName: event.target.value })} style={{ width: "100%", padding: "0 5px 0 0" }} placeholder="Название приложения" />
-          <Input onChange={(event) => setFilters({ ...filters, url: event.target.value })} style={{ width: "100%", padding: "0 0 0 5px" }} width="100%" placeholder="URL сайта" />
+          <Input onChange={(event) => { setFilters({ ...filters, appName: event.target.value }); resetPage(); }} style={{ width: "100%", padding: "0 5px 0 0" }} placeholder="Название приложения" />
+          <Input onChange={(event) => { setFilters({ ...filters, url: event.target.value }); resetPage(); }} style={{ width: "100%", padding: "0 0 0 5px" }} width="100%" placeholder="URL сайта" />
         </Flex>
 
         <Accordion>
@@ -121,7 +123,7 @@ export const Stats = () => {
                     value: 'APPLICATION', label: 'Приложение'
                   }
                 ]}
-                onChange={(value) => setFilters({ ...filters, activityType: value })}
+                onChange={(value) => { setFilters({ ...filters, activityType: value }); resetPage() }}
                 clearable
               />
               <Space h="md" />
@@ -137,7 +139,7 @@ export const Stats = () => {
                     value: 'EDUCATION', label: 'Образование'
                   }
                 ]}
-                onChange={(value) => setFilters({ ...filters, activityCategory: value })}
+                onChange={(value) => { setFilters({ ...filters, activityCategory: value }); resetPage() }}
                 clearable
               />
               <Space h="md" />
@@ -150,13 +152,13 @@ export const Stats = () => {
                     value: 'false', label: 'Не проголосовали'
                   }
                 ]}
-                onChange={(value) => setFilters({ ...filters, confirmed: value })}
+                onChange={(value) => { setFilters({ ...filters, confirmed: value }); resetPage() }}
                 clearable
               />
               <Space h="md" />
-              <DateTimePicker clearable placeholder="Время начала" onChange={(value) => setFilters({ ...filters, startTime: value ? new Date(String(value)).toISOString() : '' })} />
+              <DateTimePicker clearable placeholder="Время начала" onChange={(value) => { setFilters({ ...filters, startTime: value ? new Date(String(value)).toISOString() : '' }); resetPage(); }} />
               <Space h="md" />
-              <DateTimePicker clearable placeholder="Время конца" onChange={(value) => setFilters({ ...filters, endTime: value ? new Date(String(value)).toISOString() : '' })} />
+              <DateTimePicker clearable placeholder="Время конца" onChange={(value) => { setFilters({ ...filters, endTime: value ? new Date(String(value)).toISOString() : '' }); resetPage() }} />
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion>
