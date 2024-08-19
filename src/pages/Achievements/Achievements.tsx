@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, Space, Text, Modal, TextInput, PasswordInput } from "@mantine/core"
+import { Button, Flex, Grid, Space, Text, Modal, TextInput, PasswordInput, Title, Progress, Pagination } from "@mantine/core"
 import { User } from "../../feature/User/User"
 import { Container } from "../../shared/Container/Container"
 import { IconChevronRight, IconDiamond, IconFlame, IconPlus } from "@tabler/icons-react"
@@ -14,6 +14,7 @@ export const Achievements = () => {
   const [previewAchievements, setPreviewAchievements] = useState<Record<string, any>[]>([]);
   const [linkedUsers, setLinkedUsers] = useState<Record<string, string>[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [activePage, setPage] = useState(1);
 
   const [subaccountsOpened, { open: subaccOpen, close: subaccClose }] = useDisclosure(false);
   const [achievementsOpened, { open: achievementsOpen, close: achievementsClose }] = useDisclosure(false);
@@ -94,13 +95,26 @@ export const Achievements = () => {
 
   return (
     <>
-      <Modal opened={achievementsOpened} onClose={achievementsClose} title={"Мои достижения"} centered>
-        <Flex direction="column">
-          {previewAchievements.map(({ achievement }) => (
-            <div key={achievement.id}>
-              <h1>{achievement.name}</h1>
-              <p>{achievement.description}</p>
-            </div>
+      <Modal opened={achievementsOpened} onClose={achievementsClose} title={"Мои достижения"} centered size={"xl"}>
+        <Flex direction="column" gap={5}>
+          {previewAchievements.map(({ achievement, userDuration }) => (
+            <Flex key={achievement.id} direction={'column'} gap={5} bg="color-mix(in srgb, dodgerblue 10%, transparent)" p="10px" style={{ borderRadius: 10 }}>
+              <Flex direction={'row'} justify={'space-between'} align={'center'}>
+                <Flex direction={'column'}>
+                  <Title order={4}>{achievement.name}</Title>
+                  <Text>{achievement.description}</Text>
+                </Flex>
+                <Flex direction={'row'} c='dodgerblue' gap={5} align={'center'}>
+                  <IconDiamond />
+                  <Text fw={600}>{achievement.rewardDiamonds}</Text>
+                </Flex>
+              </Flex>
+              <Progress.Root size={'100%'}>
+                <Progress.Section value={userDuration / achievement.duration * 100} color="lime">
+                  <Progress.Label>{userDuration / achievement.duration * 100}%</Progress.Label>
+                </Progress.Section>
+              </Progress.Root>
+            </Flex>
           ))}
         </Flex>
       </Modal>
@@ -261,14 +275,15 @@ export const Achievements = () => {
               xs: "content"
             }}
           >
-            <Container>
+            <Container padding="0">
               <Flex
                 direction="row"
                 style={{ width: "100%" }}
                 justify="space-between"
                 align="center"
+                p={10}
               >
-                <h1>Мои достижения</h1>
+                <Title order={4}>Мои достижения</Title>
                 <Button
                   variant="transparent"
                   rightSection={
@@ -290,8 +305,19 @@ export const Achievements = () => {
               xs: "content"
             }}
           >
-            <Container>
-              <h1>Статистика</h1>
+            <Container padding="0">
+              <Flex
+                direction="row"
+                style={{ width: "100%" }}
+                justify="space-between"
+                align="center"
+                p={10}
+              >
+                <Title order={4}>Статистика</Title>
+                <Button
+                  variant="transparent"
+                ></Button>
+              </Flex>
             </Container>
           </Grid.Col>
         </Grid>

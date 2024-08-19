@@ -8,16 +8,11 @@ export const Market = () => {
         <h1>Магазин</h1>
 
         <Product
-          name="Усиление 1"
-          description="Описание усиления"
+          name="Заморозка"
+          description="Замораживает прогресс Ударного режима"
           price="200"
         />
 
-        <Product
-          name="Усиление 2"
-          description="Описание усиления"
-          price="100"
-        />
       </Container>
     </div>
   )

@@ -49,12 +49,21 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<UserType>) => {
       Object.assign(state, action.payload);
-    }
+    },
+    addFreeze: (state) => {
+      state.userInventory.freezing += 1;
+      state.userInventory.diamonds -= 200;
+    },
+    removeFreeze: (state) => {
+      state.userInventory.freezing -= 1;
+    },
   }
 });
 
 export const {
   setUser,
+  addFreeze,
+  removeFreeze
 } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

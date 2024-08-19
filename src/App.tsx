@@ -10,10 +10,12 @@ import { Settings } from './pages/Settings/Settings';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store/store';
 import Desktop from './pages/Desktop/Desktop';
+import { Notifications } from '@mantine/notifications';
 
 import '@mantine/dropzone/styles.css';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 import "./main.css";
 import { Stats } from './pages/Stats/Stats';
 import AchievementsSettings from './pages/AchievementsSettings/AchievementsSettings';
@@ -40,6 +42,7 @@ const App = () => {
           primaryColor: 'primary',
         }}
       >
+        <Notifications />
         <BrowserRouter>
           <Routes>
             <Route path='/auth' element={<Auth />} />

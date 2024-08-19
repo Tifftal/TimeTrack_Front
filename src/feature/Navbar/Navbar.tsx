@@ -3,7 +3,7 @@ import { IconMenu2 as IconNavbarMenu, IconBell, IconFlame, IconDiamond, IconSnow
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserState } from "../../store/userSlice/userSelector";
 import { apiInstance } from "../../api/apiInstance";
-import { setUser } from "../../store/userSlice/userSlice";
+import { removeFreeze, setUser } from "../../store/userSlice/userSlice";
 import { useEffect, useState } from "react";
 
 export const Navbar = () => {
@@ -23,6 +23,7 @@ export const Navbar = () => {
     apiInstance.post("/user/me/use-freeze")
       .then((response) => {
         dispatch(setUser(response.data))
+        dispatch(removeFreeze())
       })
       .catch(err => console.error(err))
   }
@@ -91,7 +92,7 @@ export const Navbar = () => {
             disabled={isFreezeActive || !freezing}
             onClick={() => handleActivateFreeze()}
           >
-            {isFreezeActive ? "Заморозка активна" : "Заморозить"}
+            {isFreezeActive ? `Заморозка активна, ещё ${freezing}` : "Заморозить"}
           </Button>
         </Tooltip>
 
