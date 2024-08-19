@@ -22,7 +22,6 @@ export const Navbar = () => {
   const handleActivateFreeze = () => {
     apiInstance.post("/user/me/use-freeze")
       .then((response) => {
-        console.log(response)
         dispatch(setUser(response.data))
       })
       .catch(err => console.error(err))

@@ -1,4 +1,4 @@
-import { Badge, Button, Chip, Flex, Group, Modal, NativeSelect, NumberInput, Table, TextInput } from "@mantine/core";
+import { Badge, Button, Chip, Flex, Group, Modal, NumberInput, Table, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons-react";
@@ -9,14 +9,19 @@ import { Achievement } from "./type";
 
 const AchievementsSettings = () => {
     const [opened, { open, close }] = useDisclosure(false);
-    const [categories, setCategories] = useState<string[]>(['EDUCATION', 'WORKING']);
+    const [categories] = useState<string[]>(['EDUCATION', 'ENTERTAINMENT', 'UNDEFINED']);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [achievements, setAchievements] = useState<Achievement[]>([]);
+
+    const translations: Record<string, string> = {
+        "EDUCATION": "Образование",
+        "ENTERTAINMENT": "Развлечение",
+        "UNDEFINED": "Неопределено"
+    };
 
     useEffect(() => {
         apiInstance.get('/achievements')
             .then(res => {
-                console.log(res)
                 setAchievements(res.data.content)
             })
             .catch(e => {
@@ -29,7 +34,7 @@ const AchievementsSettings = () => {
         initialValues: {
             name: '',
             description: '',
-            achievementType: 'WEBSITE',
+            achievementType: 'TARGET_CATEGORY',
             duration: 0,
             rewardDiamonds: 0,
             categoryList: [] as string[],
@@ -50,14 +55,18 @@ const AchievementsSettings = () => {
         });
     };
 
-    const handleAddAchievement = (values: any) => {
-        apiInstance.post('/achievements', values)
+    const handleAddAchievement = (values: Record<string, any>) => {
+        const formattedValues = { ...values, duration: values.duration * 1000 * 60 * 60 };
+
+        apiInstance.post('/achievements', formattedValues)
             .then(res => {
                 console.log(res)
             })
             .catch(e => {
                 console.error(e)
             })
+
+        close();
     }
 
     return (
@@ -76,14 +85,8 @@ const AchievementsSettings = () => {
                         key={form.key('description')}
                         {...form.getInputProps('description')}
                     />
-                    <NativeSelect
-                        label="Тип достижения"
-                        data={['WEBSITE', 'DESKTOP']}
-                        key={form.key('achievementType')}
-                        {...form.getInputProps('achievementType')}
-                    />
                     <NumberInput
-                        label="Длительность"
+                        label="Длительность (в часах)"
                         placeholder='1'
                         key={form.key('duration')}
                         {...form.getInputProps('duration')}
@@ -100,7 +103,7 @@ const AchievementsSettings = () => {
                         mt={10}
                     >
                         {
-                            categories.map((item, index) => (
+                            categories.map((item: string, index: number) => (
                                 <Chip
                                     size="xs"
                                     key={index}
@@ -108,12 +111,11 @@ const AchievementsSettings = () => {
                                     onClick={() => handleChipClick(item)}
                                     color={selectedItems.includes(item) ? '' : 'gray'}
                                 >
-                                    {item}
+                                    {translations[item]}
                                 </Chip>
                             ))
                         }
                     </Flex>
-
                     <Group justify="flex-end" mt="md">
                         <Button type="submit">Добавить</Button>
                     </Group>
@@ -133,7 +135,7 @@ const AchievementsSettings = () => {
                     <Table.Tr>
                         <Table.Th>Название</Table.Th>
                         <Table.Th>Описание</Table.Th>
-                        <Table.Th>Длительность</Table.Th>
+                        <Table.Th>Длительность (в часах)</Table.Th>
                         <Table.Th>Алмазы</Table.Th>
                         <Table.Th>Тип</Table.Th>
                         <Table.Th>Категории</Table.Th>
@@ -145,7 +147,7 @@ const AchievementsSettings = () => {
                             <Table.Tr key={index}>
                                 <Table.Td>{item.name}</Table.Td>
                                 <Table.Td>{item.description}</Table.Td>
-                                <Table.Td>{item.duration}</Table.Td>
+                                <Table.Td>{(item.duration / (1000 * 60 * 60)).toFixed(2)}</Table.Td>
                                 <Table.Td>{item.rewardDiamonds}</Table.Td>
                                 <Table.Td>{item.achievementType}</Table.Td>
                                 <Table.Td>

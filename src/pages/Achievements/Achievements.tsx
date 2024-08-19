@@ -11,11 +11,12 @@ import { useForm } from "@mantine/form"
 import { SubAccount } from "./components/SubAccount/SubAccount"
 
 export const Achievements = () => {
-  const [previewAchievements, setPreviewAchievements] = useState<Record<string, string>[]>([]);
+  const [previewAchievements, setPreviewAchievements] = useState<Record<string, any>[]>([]);
   const [linkedUsers, setLinkedUsers] = useState<Record<string, string>[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const [opened, { open, close }] = useDisclosure(false);
+  const [subaccountsOpened, { open: subaccOpen, close: subaccClose }] = useDisclosure(false);
+  const [achievementsOpened, { open: achievementsOpen, close: achievementsClose }] = useDisclosure(false);
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -47,9 +48,9 @@ export const Achievements = () => {
   })();
 
   useEffect(() => {
-    apiInstance.get('/achievements?page=0&size=5&sort=ASC')
+    apiInstance.get('/user/me/achievements?page=0&size=5&sort=ASC')
       .then((response) => {
-        setPreviewAchievements(response.data.content || []);
+        setPreviewAchievements(response.data || []);
       })
       .catch(error => {
         console.error(error);
@@ -80,7 +81,7 @@ export const Achievements = () => {
     })
       .then(response => {
         setLinkedUsers(state => [...state, response.data]);
-        close();
+        subaccClose();
       })
       .catch(error => {
         if (error.response && error.response.status === 409) {
@@ -93,7 +94,18 @@ export const Achievements = () => {
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Добавить пользователя" centered>
+      <Modal opened={achievementsOpened} onClose={achievementsClose} title={"Мои достижения"} centered>
+        <Flex direction="column">
+          {previewAchievements.map(({ achievement }) => (
+            <div key={achievement.id}>
+              <h1>{achievement.name}</h1>
+              <p>{achievement.description}</p>
+            </div>
+          ))}
+        </Flex>
+      </Modal>
+
+      <Modal opened={subaccountsOpened} onClose={subaccClose} title="Добавить пользователя" centered>
         <form onSubmit={form.onSubmit((values) => registerLinkedUser(values))}>
           <TextInput
             w='100%'
@@ -224,7 +236,7 @@ export const Achievements = () => {
                   rightSection={
                     <IconPlus />
                   }
-                  onClick={open}
+                  onClick={subaccOpen}
                 >
                   Добавить
                 </Button>
@@ -256,36 +268,17 @@ export const Achievements = () => {
                 justify="space-between"
                 align="center"
               >
-                <h1>Достижения</h1>
+                <h1>Мои достижения</h1>
                 <Button
                   variant="transparent"
                   rightSection={
                     <IconChevronRight />
                   }
+                  onClick={achievementsOpen}
                 >
                   Все
                 </Button>
               </Flex>
-              {/* TODO: Доделать достижения */}
-              {previewAchievements.map(({ id, name, description }) => (
-                <Flex
-                  direction="column"
-                  style={{
-                    WebkitBoxShadow: "0px 0px 8px 0px rgba(0,0,0,0.2)",
-                    MozBoxShadow: "0px 0px 8px 0px rgba(0,0,0,0.2)",
-                    boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.2)",
-                    backgroundColor: "rgb(255, 155, 35)",
-                    borderRadius: "10px",
-                    padding: "7px",
-                    margin: "10px 0",
-                    cursor: "pointer"
-                  }}
-                  key={id}
-                >
-                  <h4 style={{ color: "white" }}>{name}</h4>
-                  <p style={{ maxHeight: "30px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: "white" }}>{description}</p>
-                </Flex>
-              ))}
             </Container>
           </Grid.Col>
 
