@@ -16,6 +16,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import "./main.css";
 import { Stats } from './pages/Stats/Stats';
+import AchievementsSettings from './pages/AchievementsSettings/AchievementsSettings';
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
             <Route path='/home' element={<Home />}>
               <Route path='/home/tasks' element={<Tasks />}></Route>
               <Route path='/home/market' element={<Market />}></Route>
+              <Route path='/home/achievements-settings' element={<AchievementsSettings />}></Route>
               <Route path='/home/achievements' element={<Achievements />}></Route>
               <Route path='/home/stats' element={<Stats />}></Route>
               <Route path='/home/categories' element={<></>}></Route>

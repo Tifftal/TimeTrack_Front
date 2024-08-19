@@ -1,17 +1,12 @@
 import { Grid } from "@mantine/core"
 import { SideBar } from "../../feature/Sidebar/Sidebar"
 import { Outlet } from "react-router-dom"
-import { useState } from "react"
 import { Navbar } from "../../feature/Navbar/Navbar"
 
 export const Home = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   return (
     <>
-      <Navbar
-        setIsOpen={setIsOpen}
-      />
+      <Navbar />
       <Grid
         columns={12}
       >
@@ -23,10 +18,7 @@ export const Home = () => {
             xs: 0,
           }}
         >
-          <SideBar
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-          />
+          <SideBar />
         </Grid.Col>
         <Grid.Col
           span={{

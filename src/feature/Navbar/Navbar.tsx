@@ -1,15 +1,12 @@
 import { ActionIcon, Button, Flex, Group, Tooltip } from "@mantine/core";
 import { IconMenu2 as IconNavbarMenu, IconBell, IconFlame, IconDiamond, IconSnowflake } from "@tabler/icons-react";
-import { Props } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserState } from "../../store/userSlice/userSelector";
 import { apiInstance } from "../../api/apiInstance";
 import { setUser } from "../../store/userSlice/userSlice";
 import { useEffect, useState } from "react";
 
-export const Navbar: React.FC<Props> = ({
-  setIsOpen
-}) => {
+export const Navbar = () => {
   const [timeLeft, setTimeLeft] = useState('');
 
   const dispatch = useDispatch();
@@ -23,8 +20,9 @@ export const Navbar: React.FC<Props> = ({
   const isFreezeActive = freezeStatus === "ACTIVE";
 
   const handleActivateFreeze = () => {
-    apiInstance.post("/user/me/freeze")
+    apiInstance.post("/user/me/use-freeze")
       .then((response) => {
+        console.log(response)
         dispatch(setUser(response.data))
       })
       .catch(err => console.error(err))
@@ -64,7 +62,6 @@ export const Navbar: React.FC<Props> = ({
       style={{ padding: "10px" }}
     >
       <ActionIcon
-        onClick={() => setIsOpen(false)}
         size="lg"
       >
         <IconNavbarMenu />
@@ -93,9 +90,9 @@ export const Navbar: React.FC<Props> = ({
               <IconSnowflake />
             }
             disabled={isFreezeActive || !freezing}
-            onClick={() => handleActivateFreeze}
+            onClick={() => handleActivateFreeze()}
           >
-            {isFreezeActive ? "Активна" : "Заморозить"}
+            {isFreezeActive ? "Заморозка активна" : "Заморозить"}
           </Button>
         </Tooltip>
 

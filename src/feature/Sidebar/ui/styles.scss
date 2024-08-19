@@ -1,9 +1,9 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: var(--col-max-width);
+  max-width: 30vw;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px;
   z-index: 100;
 
   &-link {
@@ -12,7 +12,6 @@
     color: black !important;
     display: flex !important;
     align-items: flex-start !important;
-    margin: 5px 0;
 
     &_active,
     &:hover {
