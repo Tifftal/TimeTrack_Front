@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, Space, Text, Modal, TextInput, PasswordInput, Title, Progress, Pagination } from "@mantine/core"
+import { Button, Flex, Grid, Space, Text, Modal, TextInput, PasswordInput, Title, Progress } from "@mantine/core"
 import { User } from "../../feature/User/User"
 import { Container } from "../../shared/Container/Container"
 import { IconChevronRight, IconDiamond, IconFlame, IconPlus } from "@tabler/icons-react"
@@ -9,15 +9,30 @@ import { useSelector } from "react-redux"
 import { useDisclosure } from "@mantine/hooks"
 import { useForm } from "@mantine/form"
 import { SubAccount } from "./components/SubAccount/SubAccount"
+import { PieChart, PieChartCell } from "@mantine/charts";
+import { DateTimePicker } from "@mantine/dates"
 
 export const Achievements = () => {
   const [previewAchievements, setPreviewAchievements] = useState<Record<string, any>[]>([]);
   const [linkedUsers, setLinkedUsers] = useState<Record<string, string>[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [activePage, setPage] = useState(1);
+  const [statsData, setStatsData] = useState<PieChartCell[]>([]);
+  const [filters, setFilters] = useState<Record<string, any>>({
+    timeFrom: '',
+    timeTo: '',
+  })
 
   const [subaccountsOpened, { open: subaccOpen, close: subaccClose }] = useDisclosure(false);
   const [achievementsOpened, { open: achievementsOpen, close: achievementsClose }] = useDisclosure(false);
+  const [statsOpened, { open: statsOpen, close: statsClose }] = useDisclosure(false);
+
+  const translations: Record<string, string> = {
+    "EDUCATION": "Образование",
+    "UNDEFINED": "Неопределено",
+    "ENTERTAINMENT": "Развлечение",
+  };
+
+  const colors = ['dodgerblue', 'orange', 'teal', 'purple']
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -66,7 +81,28 @@ export const Achievements = () => {
           console.error(error);
         })
     }
-  }, [userType]);
+
+    apiInstance.get(`/desktop-activity?timeFrom=${filters.timeFrom}&timeTo=${filters.timeTo}`)
+      .then((response) => {
+        const stats = response.data;
+
+        if (!stats) {
+          return;
+        }
+
+        setStatsData(stats.map(({ activityCategory, duration }: { activityCategory: string, duration: number }, index: number) => {
+          return {
+            name: translations[activityCategory],
+            value: +(duration / (1000 * 60 * 60)).toFixed(2),
+            color: colors[index],
+          }
+        }))
+      })
+      .catch(error => {
+        console.error(error);
+      })
+
+  }, [userType, filters]);
 
   const registerLinkedUser = (values: {
     name: string,
@@ -95,9 +131,25 @@ export const Achievements = () => {
 
   return (
     <>
+      <Modal opened={statsOpened} onClose={statsClose} title="Статистика" centered size="xl">
+        <Flex direction="column" gap={5} align="center">
+          <Flex direction="row" align="center" justify="space-between" w="60%">
+            <DateTimePicker label="Время начала" placeholder="Выберите время" w="200px" clearable onChange={(value) => { setFilters({ ...filters, timeFrom: value ? new Date(String(value)).toISOString() : '' }) }} />
+
+            <DateTimePicker label="Время конца" placeholder="Выберите время" w="200px" clearable onChange={(value) => { setFilters({ ...filters, timeTo: value ? new Date(String(value)).toISOString() : '' }) }} />
+          </Flex>
+          <Space h="md" />
+          <PieChart withLabelsLine={false} labelsPosition="inside" labelsType="percent" withLabels data={statsData} size={300} withTooltip />
+          <Space h="md" />
+          <Space h="md" />
+          <p>Значение рассчитано в часах</p>
+          <Space h="md" />
+          <Space h="md" />
+        </Flex>
+      </Modal>
       <Modal opened={achievementsOpened} onClose={achievementsClose} title={"Мои достижения"} centered size={"xl"}>
         <Flex direction="column" gap={5}>
-          {previewAchievements.map(({ achievement, userDuration }) => (
+          {previewAchievements.map(({ achievement, userDuration, received }) => (
             <Flex key={achievement.id} direction={'column'} gap={5} bg="color-mix(in srgb, dodgerblue 10%, transparent)" p="10px" style={{ borderRadius: 10 }}>
               <Flex direction={'row'} justify={'space-between'} align={'center'}>
                 <Flex direction={'column'}>
@@ -110,8 +162,8 @@ export const Achievements = () => {
                 </Flex>
               </Flex>
               <Progress.Root size={'100%'}>
-                <Progress.Section value={userDuration / achievement.duration * 100} color="lime">
-                  <Progress.Label>{userDuration / achievement.duration * 100}%</Progress.Label>
+                <Progress.Section value={+(userDuration / achievement.duration * 100).toFixed(2)} color="lime">
+                  <Progress.Label>{!received ? `${(userDuration / achievement.duration * 100).toFixed(2)}%` : "Получено"}</Progress.Label>
                 </Progress.Section>
               </Progress.Root>
             </Flex>
@@ -275,13 +327,12 @@ export const Achievements = () => {
               xs: "content"
             }}
           >
-            <Container padding="0">
+            <Container>
               <Flex
                 direction="row"
-                style={{ width: "100%" }}
+                style={{ width: "100%", padding: "0" }}
                 justify="space-between"
                 align="center"
-                p={10}
               >
                 <Title order={4}>Мои достижения</Title>
                 <Button
@@ -305,18 +356,21 @@ export const Achievements = () => {
               xs: "content"
             }}
           >
-            <Container padding="0">
+            <Container>
               <Flex
                 direction="row"
                 style={{ width: "100%" }}
                 justify="space-between"
                 align="center"
-                p={10}
               >
                 <Title order={4}>Статистика</Title>
                 <Button
                   variant="transparent"
-                ></Button>
+                  rightSection={
+                    <IconChevronRight />
+                  }
+                  onClick={statsOpen}
+                >Все</Button>
               </Flex>
             </Container>
           </Grid.Col>

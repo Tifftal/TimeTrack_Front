@@ -37,14 +37,6 @@ export const SideBar = () => {
           >
           </Flex>
           <Button
-            size="md"
-            className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/task') })}
-            onClick={() => navigate('/home/tasks')}
-            leftSection={<IconHome />}
-          >
-            Задания
-          </Button>
-          <Button
             className={cn('sidebar-link', { 'sidebar-link_active': window.location.pathname.includes('/shop') })}
             size="md"
             onClick={() => navigate('/home/market')}

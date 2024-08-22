@@ -3,7 +3,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Auth from './pages/auth/Auth';
 import Register from './pages/Register/Register';
 import { Home } from './pages/home/Home';
-import { Tasks } from './pages/Tasks/Tasks';
 import { Achievements } from './pages/Achievements/Achievements';
 import { Market } from './pages/Market/Market';
 import { Settings } from './pages/Settings/Settings';
@@ -11,14 +10,15 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store/store';
 import Desktop from './pages/Desktop/Desktop';
 import { Notifications } from '@mantine/notifications';
+import { Stats } from './pages/Stats/Stats';
+import AchievementsSettings from './pages/AchievementsSettings/AchievementsSettings';
 
 import '@mantine/dropzone/styles.css';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/charts/styles.css';
 import "./main.css";
-import { Stats } from './pages/Stats/Stats';
-import AchievementsSettings from './pages/AchievementsSettings/AchievementsSettings';
 
 const App = () => {
   return (
@@ -49,7 +49,6 @@ const App = () => {
             <Route path='/auth/desktop' element={<Desktop />} />
             <Route path='/register' element={<Register />} />
             <Route path='/home' element={<Home />}>
-              <Route path='/home/tasks' element={<Tasks />}></Route>
               <Route path='/home/market' element={<Market />}></Route>
               <Route path='/home/achievements-settings' element={<AchievementsSettings />}></Route>
               <Route path='/home/achievements' element={<Achievements />}></Route>

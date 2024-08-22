@@ -37,7 +37,7 @@ const Auth = () => {
       .then(response => {
         localStorage.setItem('ACCESS_TOKEN', response.data.jwtTokens.access)
         localStorage.setItem('REFRESH_TOKEN', response.data.jwtTokens.refresh)
-        navigate('/home/tasks');
+        navigate('/home/achievements');
       })
       .catch(error => {
         if (error.response && error.response.status === 409) {
